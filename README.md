@@ -9,10 +9,10 @@ A super-tiny (less than 1GB) docker container that provides a penetration testin
 - **`Package Managers`** - [Homebrew for Linux](https://brew.sh/), [Cargo from Rust](https://crates.io/), [Go](https://pkg.go.dev/), [Pip3](https://pypi.org/), and Alpine Linux's [apk](https://pkgs.alpinelinux.org)
 - **`Pentesting`** - [nmap](https://nmap.org/), [sqlmap](http://sqlmap.org/), [SecLists](https://github.com/danielmiessler/SecLists), [wpscan](https://github.com/wpscanteam/wpscan), Python 3, [mitmproxy](https://mitmproxy.org/), view the [full list here](#TODO)
 
-... and much more outlined in the [Documentation](#Documentation)
+... and much more outlined in the [Documentation](#-documentation)
 
 ## 🚀 Quickstart
-Follow instructions for [downloading and installing Docker](https://docs.docker.com/get-docker/) on you host machine. If your host machine is Linux then you will also need to [install Docker Compose](https://docs.docker.com/compose/install/).
+Follow instructions for [downloading and installing Docker](https://docs.docker.com/get-docker/) on you host machine. *If your host machine is Linux then you will also need to [install Docker Compose](https://docs.docker.com/compose/install/).*
 
 ```bash
 # Download the repo
@@ -26,7 +26,6 @@ docker-compose build
 
 # Setup
 docker-compose run jackbox setup
-# Follow the prompt
 
 # Start
 docker-compose up jackbox
@@ -46,7 +45,7 @@ docker-compose down jackbox
 ```
 
 ```bash
-# This will completely delete all your persistent data. Make sure you back up sensitive files.
+# The -v option will completely delete all your persistent data. Make sure you back up sensitive files.
 docker-compose down jackbox -v
 ```
 
@@ -54,8 +53,9 @@ docker-compose down jackbox -v
 This is a work in progress.
 
 ## 🤝 Contributing
-**Feature Requests** please make a post [here](#)<br/>
-**Bugs** please report [here](#)<br/>
+**Feature Requests** please make a post [here](#)
+
+**Bugs** please report [here](#)
 
 ## 📃 License
 JackBox is licensed under the [MIT License](https://github.com/jackno/jackbox/blob/main/LICENSE).
