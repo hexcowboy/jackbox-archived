@@ -2,7 +2,7 @@
 
 A super-tiny (less than 1GB) docker container that provides a penetration testing suite. Jackbox takes less than 1 minute to setup and is persistent between sessions. It runs on any machine that can run Docker (Windows, Mac, Linux).
 
-Yes, it's faster than Kali.
+**Yes, it's faster than Kali.**
 
 ## 🎡 Environment
 - **[`Alpine Linux`](https://alpinelinux.org/)** - a lightweight and secure linux distribution that uses [busyboxy](https://busybox.net/downloads/BusyBox.html)
@@ -39,7 +39,7 @@ ssh <user>@localhost
 ```
 
 ## 🧼 Cleanup
-**Data in the `/var`, `/home`, and `/etc` paths are persistent, but nothing else is.**
+**Data in the `/etc`, `/opt`, `/home`, and `/var` paths are persistent, but nothing else is.**
 
 ```bash
 # Close out your session

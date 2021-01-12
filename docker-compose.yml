@@ -7,11 +7,13 @@ services:
     ports:
       - "22:22"
     volumes:
-      - "var:/var"
       - "etc:/etc"
       - "home:/home"
+      - "opt:opt"
+      - "var:/var"
 
 volumes:
-  var:
   etc:
   home:
+  opt:
+  var:

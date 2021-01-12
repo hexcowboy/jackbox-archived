@@ -7,7 +7,9 @@ RUN apk add --no-cache --upgrade openssh
 RUN ssh-keygen -A
 
 # Add the entry point script
-COPY scripts/setup /usr/local/bin/
+COPY ./scripts/* /usr/local/bin/
+
+RUN ls /usr/local/bin | grep up
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["jackbox-start"]

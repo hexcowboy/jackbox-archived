@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Your JackBox 🧨 is now running!"
+echo "Next time, you can use the -d option to run in detached mode."
+echo "If you wish to detach now, press Ctrl + \\"
+echo ""
+echo "If you haven't already setup the user, run the following:"
+echo "  docker-compose run jackbox setup"
+echo ""
+echo "After setup, connect with:"
+echo "  ssh <user>@127.0.0.1"
+
+exec /usr/sbin/sshd -D
