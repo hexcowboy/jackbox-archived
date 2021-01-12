@@ -3,6 +3,15 @@ version: "3.9"
 services:
   jackbox:
     build: .
-    hostname: jackbox
+    image: jackbox
     ports:
       - "22:22"
+    volumes:
+      - "var:/var"
+      - "etc:/etc"
+      - "home:/home"
+
+volumes:
+  var:
+  etc:
+  home:

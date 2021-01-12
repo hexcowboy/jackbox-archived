@@ -1,0 +1,13 @@
+#!/bin/sh
+
+while true; do
+    read -p "Please enter the new username: " username
+    if adduser $username 2> /dev/null; then
+        case $username in
+            quit|exit ) exit;;
+        esac
+        break;
+    else
+        echo "Please try a different username."
+    fi
+done
