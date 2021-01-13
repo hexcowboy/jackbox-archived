@@ -27,9 +27,6 @@ cd jackbox
 ```
 
 ```bash
-# Build
-docker-compose build
-
 # Setup
 docker-compose run jackbox setup
 
