@@ -3,17 +3,21 @@ version: "3.9"
 services:
   jackbox:
     build: .
+    container_name: jackbox
+    hostname: jackbox
     image: jackbox
     ports:
       - "22:22"
     volumes:
       - "etc:/etc"
       - "home:/home"
-      - "opt:opt"
+      - "opt:/opt"
+      - "usr:/usr"
       - "var:/var"
 
 volumes:
   etc:
   home:
   opt:
+  usr:
   var:

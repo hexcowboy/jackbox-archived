@@ -1,13 +1,107 @@
-#!/bin/sh
+#!/bin/bash
 
+trap - SIGINT # Listen for ^C
+stty -echoctl # Hide ^C
+
+# Install sudo in the background
+apt install -y -qq sudo &> /dev/null &
+dialog --infobox "Preparing to setup JackBox..." 3 35
+wait
+
+# Prompt for username
 while true; do
-    read -p "Please enter the new username: " username
-    if adduser $username 2> /dev/null; then
-        case $username in
-            quit|exit ) exit;;
-        esac
-        break;
+    cmd=(dialog --nocancel --inputbox "Enter a new username:" 8 32)
+    username=$("${cmd[@]}" 2>&1 >/dev/tty)
+    if [[ $username =~ ^[[:lower:]_][[:lower:][:digit:]_-]*[$]?$ ]];
+    then
+        if adduser \
+            --disabled-password \
+            --gecos '' \
+            $username \
+            > /dev/null \
+            2> /tmp/error ; then
+                    usermod -aG sudo $username
+                    break
+        else
+            # Show errors from the adduser tool
+            error=$(cat /tmp/error)
+            dialog --msgbox "${error}" 8 32
+        fi
     else
-        echo "Please try a different username."
+        # Username doesn't match Unix regex
+        # https://unix.stackexchange.com/a/435120
+        dialog --msgbox "The username you entered isn't valid. \
+            You can exit the setup with Ctrl + C." 8 32
     fi
+done
+
+# Prompt for password
+while true ; do
+    cmd=(dialog \
+        --insecure \
+        --nocancel \
+        --passwordbox "Enter password for ${username}:" 8 50)
+    password=$("${cmd[@]}" 2>&1 >/dev/tty)
+    cmd=(dialog \
+        --insecure \
+        --passwordbox "Confirm password for ${username}:" 8 50)
+    confirm=$("${cmd[@]}" 2>&1 >/dev/tty)
+    if [ $password == $confirm ] ; then
+        if echo "${username}:${password}" | chpasswd  2> /tmp/error ; then
+            break;
+        else
+            error=$(cat /tmp/error)
+            dialog --msgbox "${error}" 8 32
+        fi
+    else
+        dialog --msgbox "Passwords do not match." 8 32
+    fi
+done
+
+# Install dependencies
+deps=('git' 'zsh' 'curl')
+for dep in "${deps[@]}"; do
+    apt install -y -qq $dep &> /dev/null &
+    dialog --infobox "Installing dependency: $dep" 3 35
+    wait
+done
+
+# Prompt for package managers
+cmd=(dialog \
+    --separate-output \
+    --checklist \
+    "Select package managers to install now:" 15 30 10)
+options=(
+    1 "Homebrew" on
+    2 "Cargo" on
+    3 "Go" on
+    4 "Pip3" on
+    5 "Nix" off
+    6 "Yarn" off
+)
+choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+HOME="/home/${username}"
+clear
+for choice in $choices
+do
+    case $choice in
+        1)
+            echo "Installing Homebrew..."
+            git clone "https://github.com/Homebrew/brew.git" "${HOME}/.brew"
+            exec $HOME/.brew/bin/brew update
+            clear
+            ;;
+        2)
+            echo "Installing Rust..."
+            curl --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            clear
+            # cargo install
+            ;;
+        3)
+            # go install
+            ;;
+        4)
+            # pip install
+            ;;
+    esac
 done

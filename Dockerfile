@@ -1,15 +1,17 @@
-FROM alpine:latest
+FROM debian:stable
 
-# Install OpenSSH
-RUN apk add --no-cache --upgrade openssh
+# Install OpenSSH Server
+RUN apt update
+RUN apt install -y openssh-server
 
-# Generate server keys
-RUN ssh-keygen -A
+# Create SSH runtime folder
+RUN mkdir -p /var/run/sshd
+
+# Install dialog for setup process
+RUN apt install -y dialog
 
 # Add the entry point script
 COPY ./scripts/* /usr/local/bin/
-
-RUN ls /usr/local/bin | grep up
 
 EXPOSE 22
 CMD ["jackbox-start"]
