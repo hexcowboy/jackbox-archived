@@ -9,10 +9,10 @@ A super-tiny (less than 1GB) [Docker](https://www.docker.com) container that pro
 **Yes, it's faster than a VM.**
 
 ## 🎡 Environment
-- **[`Debian`](https://www.debian.org)** - a free and open-source linux distributionn
-- **`Bash`** **`Zsh`** **`Fish`** and **`Powershell`** - with a pre-configured [starship](https://github.com/starship/starship) prompt
+- **`OS`** - [Debian](https://www.debian.org) a free and open-source linux distributionn
+- **`Package Managers`** - [Homebrew for Linux](https://brew.sh/) and Debian's [apt](https://wiki.debian.org/DebianRepository)
+- **`Shell`** - Bash, Zsh, Fish, and/or Powershell all with a pre-configured [starship](https://github.com/starship/starship) prompt
 - **`Productivity Tools`** - [Neovim](https://neovim.io/) (symlinked to `vi` and `vim`), [Fzf](https://github.com/junegunn/fzf), [RipGrep](https://github.com/BurntSushi/ripgrep), [Tmux](https://github.com/tmux/tmux/wiki), [HTTPie](https://httpie.io)/[Curl](https://curl.se)/[Wget](https://www.gnu.org/software/wget/)
-- **`Package Managers`** - [Homebrew for Linux](https://brew.sh/), [Cargo](https://crates.io/), [Go Get](https://pkg.go.dev/), [Pip3](https://pypi.org/), and Debian's [apt](https://wiki.debian.org/DebianRepository)
 - **`Pentesting`** - [nmap](https://nmap.org/), [sqlmap](http://sqlmap.org/), [SecLists](https://github.com/danielmiessler/SecLists), [wpscan](https://github.com/wpscanteam/wpscan), [mitmproxy](https://mitmproxy.org/)
 
 ... and much more outlined in the [Documentation](#-documentation)
