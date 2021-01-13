@@ -5,8 +5,12 @@ stty -echoctl # Hide ^C
 
 # Install sudo in the background
 apt install -y -qq sudo &> /dev/null &
-dialog --infobox "Preparing to setup JackBox..." 3 35
-wait
+while ps -p $! &> /dev/null ; do
+    for X in '-' '/' '|' '\'; do
+        dialog --infobox "[$X] Preparing to setup JackBox..." 3 35
+        sleep 0.1;
+    done;
+done
 
 # Prompt for username
 while true; do
@@ -63,7 +67,12 @@ done
 deps=('gcc' 'git' 'curl' 'wget' 'xz-utils')
 for dep in "${deps[@]}"; do
     apt install -y -qq $dep &> /dev/null &
-    dialog --infobox "Installing dependency: $dep" 3 35
+    while ps -p $! &> /dev/null ; do
+        for X in '-' '/' '|' '\'; do
+            dialog --infobox "[$X] Installing dependency: $dep" 3 40
+            sleep 0.1;
+        done;
+    done
     wait
 done
 

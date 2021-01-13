@@ -34,7 +34,9 @@ main () {
 
 install_homebrew () {
     echo "Installing Homebrew..."
-    git clone "https://github.com/Homebrew/brew.git" "$HOME/.brew" && \
+    git clone --depth 1 \
+        "https://github.com/Homebrew/brew.git" \
+        "$HOME/.brew" && \
         exec $HOME/.brew/bin/brew update
 }
 
