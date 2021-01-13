@@ -1,15 +1,19 @@
 # 🧨 JackBox
 
-A super-tiny (less than 1GB) docker container that provides a penetration testing suite. Jackbox takes less than 1 minute to setup and is persistent between sessions. It runs on any machine that can run Docker (Windows, Mac, Linux).
+A super-tiny (less than 1GB) [Docker](https://www.docker.com) container that provides a penetration testing environment on-the-fly.
 
-**Yes, it's faster than Kali.**
+- Runs on Windows, Mac, Linux (anything that runs Docker)
+- Setup in as little as 1 minute
+- Pick & Choose packages with setup script
+
+**Yes, it's faster than a VM.**
 
 ## 🎡 Environment
-- **[`Alpine Linux`](https://alpinelinux.org/)** - a lightweight and secure linux distribution that uses [busyboxy](https://busybox.net/downloads/BusyBox.html)
-- **`Zsh`** - with a pre-installed [starship](https://github.com/starship/starship) prompt and [syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-- **[`Neovim`](https://neovim.io/)** - a lightweight improvement of Vim with 30% less source code (symlinked to `vim` and `vi`)
-- **`Package Managers`** - [Homebrew for Linux](https://brew.sh/), [Cargo from Rust](https://crates.io/), [Go](https://pkg.go.dev/), [Pip3](https://pypi.org/), and Alpine Linux's [apk](https://pkgs.alpinelinux.org)
-- **`Pentesting`** - [nmap](https://nmap.org/), [sqlmap](http://sqlmap.org/), [SecLists](https://github.com/danielmiessler/SecLists), [wpscan](https://github.com/wpscanteam/wpscan), Python 3, [mitmproxy](https://mitmproxy.org/), view the [full list here](#TODO)
+- **[`Debian`](https://www.debian.org)** - a free and open-source linux distributionn
+- **`Bash`** **`Zsh`** **`Fish`** and **`Powershell`** - with a pre-configured [starship](https://github.com/starship/starship) prompt
+- **`Productivity Tools`** - [Neovim](https://neovim.io/) (symlinked to `vi` and `vim`), [Fzf](https://github.com/junegunn/fzf), [RipGrep](https://github.com/BurntSushi/ripgrep), [Tmux](https://github.com/tmux/tmux/wiki), [HTTPie](https://httpie.io)/[Curl](https://curl.se)/[Wget](https://www.gnu.org/software/wget/)
+- **`Package Managers`** - [Homebrew for Linux](https://brew.sh/), [Cargo](https://crates.io/), [Go Get](https://pkg.go.dev/), [Pip3](https://pypi.org/), and Debian's [apt](https://wiki.debian.org/DebianRepository)
+- **`Pentesting`** - [nmap](https://nmap.org/), [sqlmap](http://sqlmap.org/), [SecLists](https://github.com/danielmiessler/SecLists), [wpscan](https://github.com/wpscanteam/wpscan), [mitmproxy](https://mitmproxy.org/)
 
 ... and much more outlined in the [Documentation](#-documentation)
 
@@ -39,10 +43,10 @@ ssh <user>@localhost
 ```
 
 ## 🧼 Cleanup
-**Data in the `/etc`, `/opt`, `/home`, and `/var` paths are persistent, but nothing else is.**
+⚠️ **Data in the `/etc`, `/opt`, `/home`, and `/var` paths are persistent, but nothing else is.**
 
 ```bash
-# Close out your session
+# Close out your session without deleting your data.
 docker-compose down jackbox
 ```
 
