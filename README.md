@@ -1,6 +1,6 @@
 # 🧨 JackBox
 
-A super-tiny (less than 1GB) [Docker](https://www.docker.com) container that provides a penetration testing environment on-the-fly.
+A super-tiny (less than 1GB) [Docker](https://www.docker.com) container that provides a penetration testing environment.
 
 - Runs on Windows, Mac, Linux (anything that runs Docker)
 - Setup in as little as 1 minute
