@@ -1,0 +1,49 @@
+#!/bin/bash
+
+main () {
+    case $1 in
+        --defaults )
+            clear
+            install_homebrew
+            ;;
+    esac
+
+    # Prompt for package managers
+    cmd=(dialog \
+        --separate-output \
+        --checklist \
+        "Select package managers to install now:" 15 30 10)
+    options=(
+        1 "Homebrew" on
+        2 "Nix" off
+    )
+    choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+    for choice in $choices
+    do
+        clear
+        case $choice in
+            1)
+                install_homebrew
+                ;;
+            2)
+                install_nix
+                ;;
+        esac
+    done
+}
+
+install_homebrew () {
+    echo "Installing Homebrew..."
+    git clone "https://github.com/Homebrew/brew.git" "$HOME/.brew" && \
+        exec $HOME/.brew/bin/brew update
+}
+
+install_nix () {
+    echo "Installing Nix..."
+    curl --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+        ~/.cargo/bin/cargo install nix-user-chroot && \
+        mkdir -m 0755 ~/.nix && \
+        nix-user-chroot ~/.nix bash -c "curl -L https://nixos.org/nix/install | bash"
+}
+
+main "$@"; exit

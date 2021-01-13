@@ -11,7 +11,7 @@ RUN mkdir -p /var/run/sshd
 RUN apt install -y dialog
 
 # Add the entry point script
-COPY ./scripts/* /usr/local/bin/
+COPY scripts/* /usr/local/bin/
 
 EXPOSE 22
 CMD ["jackbox-start"]

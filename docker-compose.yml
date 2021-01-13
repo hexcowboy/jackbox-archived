@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   jackbox:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: jackbox
     hostname: jackbox
     image: jackbox

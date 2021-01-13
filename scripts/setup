@@ -40,15 +40,16 @@ while true ; do
     cmd=(dialog \
         --insecure \
         --nocancel \
-        --passwordbox "Enter password for ${username}:" 8 50)
+        --passwordbox "Enter password for ${username}:" 8 32)
     password=$("${cmd[@]}" 2>&1 >/dev/tty)
     cmd=(dialog \
         --insecure \
-        --passwordbox "Confirm password for ${username}:" 8 50)
+        --passwordbox "Confirm password for ${username}:" 8 32)
     confirm=$("${cmd[@]}" 2>&1 >/dev/tty)
     if [ $password == $confirm ] ; then
         if echo "${username}:${password}" | chpasswd  2> /tmp/error ; then
-            break;
+            clear
+            break
         else
             error=$(cat /tmp/error)
             dialog --msgbox "${error}" 8 32
@@ -59,49 +60,18 @@ while true ; do
 done
 
 # Install dependencies
-deps=('git' 'zsh' 'curl')
+deps=('gcc' 'git' 'curl' 'wget' 'xz-utils')
 for dep in "${deps[@]}"; do
     apt install -y -qq $dep &> /dev/null &
     dialog --infobox "Installing dependency: $dep" 3 35
     wait
 done
 
-# Prompt for package managers
-cmd=(dialog \
-    --separate-output \
-    --checklist \
-    "Select package managers to install now:" 15 30 10)
-options=(
-    1 "Homebrew" on
-    2 "Cargo" on
-    3 "Go" on
-    4 "Pip3" on
-    5 "Nix" off
-    6 "Yarn" off
-)
-choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-HOME="/home/${username}"
-clear
-for choice in $choices
-do
-    case $choice in
-        1)
-            echo "Installing Homebrew..."
-            git clone "https://github.com/Homebrew/brew.git" "${HOME}/.brew"
-            exec $HOME/.brew/bin/brew update
-            clear
-            ;;
-        2)
-            echo "Installing Rust..."
-            curl --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-            clear
-            # cargo install
-            ;;
-        3)
-            # go install
-            ;;
-        4)
-            # pip install
-            ;;
-    esac
-done
+if dialog \
+    --yes-label "Quick" \
+    --no-label "Customize" \
+    --yesno "How would you like to install the new user?" 5 50 ; then
+    sudo -i -u $username jackbox-setup-user --defaults
+else
+    sudo -i -u $username jackbox-setup-user
+fi
